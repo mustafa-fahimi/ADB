@@ -25,9 +25,8 @@ namespace ADB
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                String a = folderBrowserDialog1.SelectedPath;
                 TextWriter tw = new StreamWriter("C:\\Program Files\\Matarata-adb.txt");
-                a = a + "\n";
+                String a = folderBrowserDialog1.SelectedPath;
                 tw.WriteLine(a);
                 tw.Close();
                 textBox2.Text = a;
