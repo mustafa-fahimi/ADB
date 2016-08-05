@@ -44,23 +44,28 @@ namespace ADB
                 MessageBox.Show("Run Program as administrator","Permission",MessageBoxButtons.OK);
                 Application.Exit();
             }
+            comboBox1.Items.Add("5555");
+            comboBox1.Items.Add("5558");
+            comboBox1.SelectedIndex = 0;
             label5.Visible = false;
             checkBox3.Checked = true;
-            checkEclipse();
+            checkAndroidStudio();
             if (File.Exists("C:\\Program Files\\Matarata-adb.txt"))
             {
                 TextReader tr = new StreamReader("C:\\Program Files\\Matarata-adb.txt");
-                String txtfilematn = tr.ReadLine();
-                string Secondline = txtfilematn;
-                textBox2.Text = Secondline;
+                String txtFileFirstLine = tr.ReadLine();
+                textBox2.Text = txtFileFirstLine;
+                String txtFileSecondLine = tr.ReadLine();
+                textBox1.Text = txtFileSecondLine;
                 tr.Close();
                 checkBox2.Checked = true;
+                checkBox3.Checked = true;
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            checkEclipse();
+            checkAndroidStudio();
             string txtbox2 = textBox2.Text;
             string txtbox = textBox1.Text;
             string cmbbox = comboBox1.Text;
@@ -90,7 +95,7 @@ namespace ADB
                     {
                         label5.Visible = true;
                         label5.Text = "Connected !";
-
+                        saveIPtoTxt();
                     }
                     else
                     {
@@ -126,10 +131,10 @@ namespace ADB
 
         private void button4_Click(object sender, EventArgs e)
         {
-            checkEclipse();
+            checkAndroidStudio();
         }
 
-        private void checkEclipse()
+        private void checkAndroidStudio()
         {
             if (System.Diagnostics.Process.GetProcessesByName("studio64").Length > 0)
             {
@@ -161,6 +166,22 @@ namespace ADB
             var identity = WindowsIdentity.GetCurrent();
             var principal = new WindowsPrincipal(identity);
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
+        public void saveIPtoTxt()
+        {
+            String txtfilematn = "";
+            if (File.Exists("C:\\Program Files\\Matarata-adb.txt"))
+            {
+                TextReader tr = new StreamReader("C:\\Program Files\\Matarata-adb.txt");
+                txtfilematn = tr.ReadLine();
+                tr.Close();
+                String IpText = textBox1.Text;
+                TextWriter tw = new StreamWriter("C:\\Program Files\\Matarata-adb.txt");
+                tw.WriteLine(txtfilematn);
+                tw.WriteLine(IpText);
+                tw.Close();
+            }
         }
 
     }
